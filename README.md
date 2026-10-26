@@ -34,8 +34,12 @@ flutter test
 lib/
 ├── main.dart     # point d'entrée
 ├── app.dart      # widget racine
-├── core/         # thème, navigation, widgets communs (à venir)
+├── core/
+│   └── theme/    # couleurs, espacements, styles de texte et thème global
 └── features/     # une fonctionnalité = domain / data / presentation (à venir)
+
+assets/
+└── fonts/        # polices Poppins embarquées
 ```
 
 Les dossiers sont créés au fur et à mesure des tâches, pas avant.
