@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rechivia/core/router/app_routes.dart';
 import 'package:rechivia/core/widgets/app_bottom_nav_bar.dart';
 import 'package:rechivia/core/widgets/placeholder_screen.dart';
+import 'package:rechivia/features/daily_question/presentation/screens/daily_session_screen.dart';
 import 'package:rechivia/features/home/presentation/screens/home_screen.dart';
 
 import 'helpers/pump_rechivia.dart';
@@ -38,7 +39,7 @@ void main() {
     await tester.tap(find.byIcon(Icons.add));
     await tester.pumpAndSettle();
 
-    expect(_screenText('Répondre à la question'), findsOneWidget);
+    expect(find.byType(DailySessionScreen), findsOneWidget);
     expect(find.byType(AppBottomNavBar), findsNothing);
   });
 }

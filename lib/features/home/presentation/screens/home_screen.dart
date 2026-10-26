@@ -22,7 +22,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final username = ref.watch(currentUserProvider).value?.username;
-    final question = ref.watch(dailyQuestionProvider);
+    final question = ref.watch(dailySessionProvider);
     final couple = ref.watch(currentCoupleProvider);
 
     return Scaffold(
@@ -39,7 +39,7 @@ class HomeScreen extends ConsumerWidget {
               DailyQuestionCard(
                 question: question,
                 onOpen: () => context.push(AppRoutes.answer),
-                onRetry: () => ref.invalidate(dailyQuestionProvider),
+                onRetry: () => ref.invalidate(dailySessionProvider),
               ),
               const SizedBox(height: AppSpacing.lg),
               const SectionHeader(

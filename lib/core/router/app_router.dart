@@ -9,6 +9,7 @@ import 'package:rechivia/features/auth/presentation/screens/register_screen.dart
 import 'package:rechivia/features/couple/presentation/screens/create_couple_screen.dart';
 import 'package:rechivia/features/couple/presentation/screens/invite_partner_screen.dart';
 import 'package:rechivia/features/couple/presentation/screens/join_couple_screen.dart';
+import 'package:rechivia/features/daily_question/presentation/screens/daily_session_screen.dart';
 import 'package:rechivia/features/home/presentation/screens/home_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen.dart';
@@ -86,9 +87,7 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
       ),
       GoRoute(
         path: AppRoutes.answer,
-        builder: (context, state) {
-          return const PlaceholderScreen(title: 'Répondre à la question');
-        },
+        builder: (context, state) => const DailySessionScreen(),
       ),
     ],
   );

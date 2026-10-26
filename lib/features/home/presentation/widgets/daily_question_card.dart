@@ -6,7 +6,7 @@ import 'package:rechivia/core/theme/app_spacing.dart';
 import 'package:rechivia/core/theme/app_text_styles.dart';
 import 'package:rechivia/core/widgets/error_retry_view.dart';
 import 'package:rechivia/core/widgets/primary_button.dart';
-import 'package:rechivia/features/daily_question/domain/daily_question.dart';
+import 'package:rechivia/features/daily_question/domain/daily_session.dart';
 
 /// Carte d'accueil qui présente la question du jour.
 class DailyQuestionCard extends StatelessWidget {
@@ -17,7 +17,7 @@ class DailyQuestionCard extends StatelessWidget {
     super.key,
   });
 
-  final AsyncValue<DailyQuestion> question;
+  final AsyncValue<DailySession> question;
   final VoidCallback onOpen;
   final VoidCallback onRetry;
 
@@ -41,7 +41,8 @@ class DailyQuestionCard extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             question.when(
-              data: (data) => _QuestionContent(text: data.text, onOpen: onOpen),
+              data: (data) =>
+                  _QuestionContent(text: data.question.text, onOpen: onOpen),
               loading: () => const SizedBox(
                 height: 120,
                 child: Center(child: CircularProgressIndicator()),

@@ -37,6 +37,7 @@ lib/
 ├── core/
 │   ├── router/   # routes et navigation principale
 │   ├── theme/    # couleurs, espacements, styles de texte et thème global
+│   ├── utils/    # formatage de dates
 │   └── widgets/  # composants partagés : boutons, champ, carte, logo et barre
 ├── features/
 │   ├── auth/
@@ -52,9 +53,9 @@ lib/
 │   │   ├── data/         # dépôt factice en mémoire
 │   │   └── presentation/ # création, invitation et jonction d'un espace
 │   ├── daily_question/
-│   │   ├── domain/       # question du jour et contrat de données
-│   │   ├── data/         # catalogue factice déterminé par la date
-│   │   └── presentation/ # fournisseur de question
+│   │   ├── domain/       # question, session, réponse et règles métier
+│   │   ├── data/         # dépôt factice de session et réponses
+│   │   └── presentation/ # parcours de réponse, attente et dévoilement
 │   ├── home/
 │   │   └── presentation/ # accueil et cartes de contenu
 │   └── onboarding/
@@ -75,6 +76,10 @@ expirent après sept jours et ne sont utilisables qu'une fois. Le code de
 démonstration `K7M2PQ` permet de tester le parcours de jonction.
 La question du jour et les informations de session sont également simulées ;
 elles ne sont pas synchronisées entre appareils ni persistées après fermeture.
+La réponse de l'autre partenaire reste masquée tant que les deux réponses
+n'ont pas été envoyées. Une réponse déjà envoyée peut être modifiée tant que
+les réponses ne sont pas dévoilées ; passer une question la clôt pour la
+journée.
 
 ## Conventions
 

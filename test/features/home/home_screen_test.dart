@@ -6,15 +6,26 @@ import 'package:rechivia/features/auth/data/fake_auth_repository.dart';
 import 'package:rechivia/features/couple/data/fake_couple_repository.dart';
 import 'package:rechivia/features/couple/domain/couple_icon.dart';
 import 'package:rechivia/features/daily_question/data/fake_daily_question_repository.dart';
-import 'package:rechivia/features/daily_question/domain/daily_question.dart';
 import 'package:rechivia/features/daily_question/domain/daily_question_repository.dart';
+import 'package:rechivia/features/daily_question/domain/daily_session.dart';
+import 'package:rechivia/features/daily_question/domain/daily_session_exception.dart';
 
 import '../../helpers/pump_rechivia.dart';
 
 class _FailingDailyQuestionRepository implements DailyQuestionRepository {
   @override
-  Future<DailyQuestion> getTodayQuestion() async {
+  Future<DailySession> getTodaySession() async {
     throw Exception('Échec simulé');
+  }
+
+  @override
+  Future<DailySession> submitAnswer({required String text}) {
+    throw const DailySessionException(DailySessionFailure.unknown);
+  }
+
+  @override
+  Future<DailySession> passToday() {
+    throw const DailySessionException(DailySessionFailure.unknown);
   }
 }
 
@@ -35,7 +46,7 @@ void main() {
 
   testWidgets('affiche la question du jour', (tester) async {
     final questions = buildQuestions();
-    final expected = await questions.getTodayQuestion();
+    final expected = (await questions.getTodaySession()).question;
 
     await pumpRechivia(
       tester,
@@ -105,7 +116,7 @@ void main() {
     await tester.tap(find.text('Voir la question'));
     await tester.pumpAndSettle();
 
-    expect(_placeholderText('Répondre à la question'), findsOneWidget);
+    expect(find.text('Votre réponse reste privée'), findsOneWidget);
   });
 
   testWidgets('"Voir l\'historique" ouvre l\'onglet Historique', (
