@@ -13,6 +13,7 @@ abstract final class AppRoutes {
 
   static const String register = '/register';
   static const String login = '/login';
+  static const String forgotPassword = '/forgot-password';
 
   // --- Les 4 onglets de la barre de navigation ------------------------------
   static const String home = '/home';

@@ -39,6 +39,10 @@ lib/
 │   ├── theme/    # couleurs, espacements, styles de texte et thème global
 │   └── widgets/  # composants partagés : boutons, champ, carte, logo et barre
 ├── features/
+│   ├── auth/
+│   │   ├── domain/       # contrat, utilisateur, erreurs et validations
+│   │   ├── data/         # dépôt d'authentification factice en mémoire
+│   │   └── presentation/ # formulaires et état Riverpod
 │   └── onboarding/
 │       └── presentation/
 │           ├── screens/ # carrousel et écran de bienvenue
@@ -48,10 +52,9 @@ assets/
 └── fonts/        # polices Poppins embarquées
 ```
 
-Les dossiers des fonctionnalités sont créés au fur et à mesure des tâches.
-Les écrans d'inscription et de connexion sont encore des placeholders. La
-connexion Google et Apple affiche « Bientôt disponible » en attendant son
-intégration.
+Les comptes d'authentification sont conservés en mémoire uniquement et
+disparaissent à la fermeture de l'application. La connexion Google et Apple
+affiche « Bientôt disponible » en attendant son intégration au backend.
 
 ## Conventions
 

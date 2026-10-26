@@ -62,7 +62,13 @@ class SocialButton extends StatelessWidget {
         children: [
           leading,
           const SizedBox(width: AppSpacing.sm + 4),
-          Text(label, style: AppTextStyles.label.copyWith(fontSize: 16)),
+          Flexible(
+            child: Text(
+              label,
+              style: AppTextStyles.label.copyWith(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );

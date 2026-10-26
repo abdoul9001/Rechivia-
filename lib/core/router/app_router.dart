@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:rechivia/core/router/app_routes.dart';
 import 'package:rechivia/core/router/main_shell.dart';
 import 'package:rechivia/core/widgets/placeholder_screen.dart';
+import 'package:rechivia/features/auth/presentation/screens/forgot_password_screen.dart';
+import 'package:rechivia/features/auth/presentation/screens/login_screen.dart';
+import 'package:rechivia/features/auth/presentation/screens/register_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen.dart';
 
@@ -12,7 +15,7 @@ import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen
 /// test puisse obtenir un routeur neuf, sans état partagé.
 ///
 /// Structure :
-/// - le parcours d'entrée (introduction, bienvenue, inscription, connexion) ;
+/// - le parcours d'entrée (introduction, bienvenue, authentification) ;
 /// - 4 onglets regroupés dans [MainShell] (avec la barre de navigation) ;
 /// - des écrans plein écran, placés à côté, qui recouvrent la barre.
 ///
@@ -32,15 +35,15 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
       ),
       GoRoute(
         path: AppRoutes.register,
-        builder: (context, state) {
-          return const PlaceholderScreen(title: 'Inscription');
-        },
+        builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
         path: AppRoutes.login,
-        builder: (context, state) {
-          return const PlaceholderScreen(title: 'Connexion');
-        },
+        builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.forgotPassword,
+        builder: (context, state) => const ForgotPasswordScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
