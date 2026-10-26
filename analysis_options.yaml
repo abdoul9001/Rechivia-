@@ -1,0 +1,17 @@
+# Règles d'analyse statique du projet (le "lint").
+# Objectif : que le code reste homogène et lisible, quel que soit l'auteur.
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # Une seule convention de guillemets dans tout le projet.
+    prefer_single_quotes: true
+    # Imports toujours en "package:rechivia/..." (jamais de chemins relatifs),
+    # pour que l'origine d'un fichier soit évidente.
+    always_use_package_imports: true
+    # Virgules finales : des diffs Git plus petits et un formatage stable.
+    require_trailing_commas: true
+    # Pas de print() oubliés : le contenu intime ne doit jamais finir dans les journaux.
+    avoid_print: true
+    prefer_const_constructors: true
+    prefer_const_declarations: true
