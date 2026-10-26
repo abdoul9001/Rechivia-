@@ -29,7 +29,7 @@ class ThemeSelectionScreen extends ConsumerWidget {
     }
   }
 
-  void _leave(BuildContext context) => context.go(AppRoutes.home);
+  void _leave(BuildContext context) => context.go(AppRoutes.createCouple);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

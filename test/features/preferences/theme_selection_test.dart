@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:rechivia/core/router/app_routes.dart';
-import 'package:rechivia/core/widgets/app_bottom_nav_bar.dart';
 import 'package:rechivia/core/widgets/primary_button.dart';
+import 'package:rechivia/features/couple/presentation/screens/create_couple_screen.dart';
 import 'package:rechivia/features/preferences/data/fake_preferences_repository.dart';
 import 'package:rechivia/features/preferences/domain/theme_category.dart';
 import 'package:rechivia/features/preferences/presentation/theme_category_style.dart';
@@ -45,7 +45,7 @@ void main() {
     expect(find.byIcon(Icons.check), findsNothing);
   });
 
-  testWidgets('"Continuer" enregistre les thèmes puis ouvre l\'accueil', (
+  testWidgets('"Continuer" enregistre les thèmes puis crée l\'espace', (
     tester,
   ) async {
     final repository = FakePreferencesRepository(latency: Duration.zero);
@@ -65,10 +65,10 @@ void main() {
       ThemeCategory.loveRomance,
       ThemeCategory.gamesChallenges,
     });
-    expect(find.byType(AppBottomNavBar), findsOneWidget);
+    expect(find.byType(CreateCoupleScreen), findsOneWidget);
   });
 
-  testWidgets('"Plus tard" ouvre l\'accueil sans rien enregistrer', (
+  testWidgets('"Plus tard" ouvre la création sans rien enregistrer', (
     tester,
   ) async {
     final repository = FakePreferencesRepository(latency: Duration.zero);
@@ -82,6 +82,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(repository.savedThemes, isEmpty);
-    expect(find.byType(AppBottomNavBar), findsOneWidget);
+    expect(find.byType(CreateCoupleScreen), findsOneWidget);
   });
 }

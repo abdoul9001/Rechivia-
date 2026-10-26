@@ -14,7 +14,7 @@ import 'package:rechivia/core/widgets/secondary_button.dart';
 import 'package:rechivia/features/auth/domain/auth_validators.dart';
 import 'package:rechivia/features/auth/presentation/auth_error_messages.dart';
 import 'package:rechivia/features/auth/presentation/providers/auth_providers.dart';
-import 'package:rechivia/features/auth/presentation/widgets/auth_form_layout.dart';
+import 'package:rechivia/core/widgets/form_screen_layout.dart';
 
 /// Écran "Mot de passe oublié ?" (maquette 4).
 ///
@@ -60,7 +60,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     ref.listen(authControllerProvider, _onStateChanged);
     final isLoading = ref.watch(authControllerProvider).isLoading;
 
-    return AuthFormLayout(
+    return FormScreenLayout(
       title: 'Mot de passe oublié ?',
       subtitle:
           'Pas de souci ! Indiquez votre adresse e-mail et nous vous '

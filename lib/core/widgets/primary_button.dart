@@ -75,7 +75,14 @@ class PrimaryButton extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label, style: AppTextStyles.button),
+        Flexible(
+          child: Text(
+            label,
+            style: AppTextStyles.button,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         if (showArrow) ...[
           const SizedBox(width: AppSpacing.sm),
           const Icon(Icons.arrow_forward, color: Colors.white, size: 20),

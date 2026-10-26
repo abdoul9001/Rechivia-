@@ -6,6 +6,9 @@ import 'package:rechivia/core/widgets/placeholder_screen.dart';
 import 'package:rechivia/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:rechivia/features/auth/presentation/screens/login_screen.dart';
 import 'package:rechivia/features/auth/presentation/screens/register_screen.dart';
+import 'package:rechivia/features/couple/presentation/screens/create_couple_screen.dart';
+import 'package:rechivia/features/couple/presentation/screens/invite_partner_screen.dart';
+import 'package:rechivia/features/couple/presentation/screens/join_couple_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:rechivia/features/preferences/presentation/screens/theme_selection_screen.dart';
@@ -49,6 +52,18 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
       GoRoute(
         path: AppRoutes.themes,
         builder: (context, state) => const ThemeSelectionScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.createCouple,
+        builder: (context, state) => const CreateCoupleScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.invitePartner,
+        builder: (context, state) => const InvitePartnerScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.joinCouple,
+        builder: (context, state) => const JoinCoupleScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

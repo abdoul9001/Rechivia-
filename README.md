@@ -47,6 +47,10 @@ lib/
 │   │   ├── domain/       # catégories et contrat de préférences
 │   │   ├── data/         # dépôt factice en mémoire
 │   │   └── presentation/ # sélection des thèmes
+│   ├── couple/
+│   │   ├── domain/       # espace, icônes, invitations et validations
+│   │   ├── data/         # dépôt factice en mémoire
+│   │   └── presentation/ # création, invitation et jonction d'un espace
 │   └── onboarding/
 │       └── presentation/
 │           ├── screens/ # carrousel et écran de bienvenue
@@ -60,6 +64,9 @@ Les comptes d'authentification sont conservés en mémoire uniquement et
 disparaissent à la fermeture de l'application. Les préférences de thèmes sont
 également factices et non persistées. La connexion Google et Apple affiche
 « Bientôt disponible » en attendant son intégration au backend.
+Les espaces de couple et invitations sont simulés en mémoire ; les invitations
+expirent après sept jours et ne sont utilisables qu'une fois. Le code de
+démonstration `K7M2PQ` permet de tester le parcours de jonction.
 
 ## Conventions
 

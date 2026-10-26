@@ -5,26 +5,26 @@ import 'package:rechivia/core/theme/app_spacing.dart';
 import 'package:rechivia/core/theme/app_text_styles.dart';
 import 'package:rechivia/core/widgets/app_logo.dart';
 
-/// Mise en page commune aux écrans d'authentification.
+/// Mise en page commune aux écrans à formulaire (authentification, couple).
 ///
-/// Le contenu défile : le formulaire reste accessible quand le clavier
-/// est ouvert ou sur un petit écran.
-class AuthFormLayout extends StatelessWidget {
-  const AuthFormLayout({
+/// Le contenu défile afin que le formulaire reste accessible avec le clavier
+/// ouvert ou sur un petit écran.
+class FormScreenLayout extends StatelessWidget {
+  const FormScreenLayout({
     required this.title,
     required this.subtitle,
-    required this.onBack,
     required this.children,
+    this.onBack,
     super.key,
   });
 
   final String title;
   final String subtitle;
 
-  /// Action du bouton retour (en haut à gauche).
-  final VoidCallback onBack;
+  /// Action du bouton retour. Si `null`, le bouton est masqué.
+  final VoidCallback? onBack;
 
-  /// Contenu propre à l'écran, affiché sous le sous-titre.
+  /// Contenu propre à l'écran.
   final List<Widget> children;
 
   @override
@@ -35,18 +35,21 @@ class AuthFormLayout extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.lg),
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  onPressed: onBack,
-                  tooltip: 'Retour',
-                  icon: const Icon(Icons.arrow_back),
-                  style: IconButton.styleFrom(
-                    foregroundColor: AppColors.violet,
-                    backgroundColor: AppColors.violet.withValues(alpha: 0.1),
+              if (onBack != null)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    onPressed: onBack,
+                    tooltip: 'Retour',
+                    icon: const Icon(Icons.arrow_back),
+                    style: IconButton.styleFrom(
+                      foregroundColor: AppColors.violet,
+                      backgroundColor: AppColors.violet.withValues(alpha: 0.1),
+                    ),
                   ),
-                ),
-              ),
+                )
+              else
+                const SizedBox(height: AppSpacing.md),
               const AppLogo(size: 56),
               const SizedBox(height: AppSpacing.md),
               Text(

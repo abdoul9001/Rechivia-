@@ -13,7 +13,7 @@ import 'package:rechivia/features/auth/domain/auth_validators.dart';
 import 'package:rechivia/features/auth/presentation/auth_error_messages.dart';
 import 'package:rechivia/features/auth/presentation/providers/auth_providers.dart';
 import 'package:rechivia/features/auth/presentation/widgets/auth_footer_link.dart';
-import 'package:rechivia/features/auth/presentation/widgets/auth_form_layout.dart';
+import 'package:rechivia/core/widgets/form_screen_layout.dart';
 import 'package:rechivia/features/auth/presentation/widgets/auth_mode_switch.dart';
 
 /// Écran d'inscription (maquette 2).
@@ -66,7 +66,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     ref.listen(authControllerProvider, _onStateChanged);
     final isLoading = ref.watch(authControllerProvider).isLoading;
 
-    return AuthFormLayout(
+    return FormScreenLayout(
       title: 'Créez votre compte',
       subtitle:
           'Rejoignez Rechivia pour partager, vous découvrir '

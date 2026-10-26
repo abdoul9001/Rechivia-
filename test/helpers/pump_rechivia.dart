@@ -7,6 +7,8 @@ import 'package:rechivia/core/router/app_router.dart';
 import 'package:rechivia/core/router/app_routes.dart';
 import 'package:rechivia/features/auth/data/fake_auth_repository.dart';
 import 'package:rechivia/features/auth/presentation/providers/auth_providers.dart';
+import 'package:rechivia/features/couple/data/fake_couple_repository.dart';
+import 'package:rechivia/features/couple/presentation/providers/couple_providers.dart';
 import 'package:rechivia/features/preferences/data/fake_preferences_repository.dart';
 import 'package:rechivia/features/preferences/presentation/providers/preferences_providers.dart';
 
@@ -15,6 +17,7 @@ Future<void> pumpRechivia(
   WidgetTester tester, {
   String initialLocation = AppRoutes.onboarding,
   FakePreferencesRepository? preferencesRepository,
+  FakeCoupleRepository? coupleRepository,
 }) async {
   tester.view.physicalSize = const Size(1200, 3000);
   tester.view.devicePixelRatio = 3;
@@ -29,6 +32,9 @@ Future<void> pumpRechivia(
         preferencesRepositoryProvider.overrideWithValue(
           preferencesRepository ??
               FakePreferencesRepository(latency: Duration.zero),
+        ),
+        coupleRepositoryProvider.overrideWithValue(
+          coupleRepository ?? FakeCoupleRepository(latency: Duration.zero),
         ),
       ],
       child: RechiviaApp(

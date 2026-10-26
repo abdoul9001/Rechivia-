@@ -18,6 +18,15 @@ abstract final class AppRoutes {
   /// Choix des thèmes, juste après l'inscription.
   static const String themes = '/themes';
 
+  /// Création de l'espace privé du couple.
+  static const String createCouple = '/couple/create';
+
+  /// Invitation du partenaire.
+  static const String invitePartner = '/couple/invite';
+
+  /// Rejoindre un espace avec un code d'invitation.
+  static const String joinCouple = '/couple/join';
+
   // --- Les 4 onglets de la barre de navigation ------------------------------
   static const String home = '/home';
   static const String history = '/history';
