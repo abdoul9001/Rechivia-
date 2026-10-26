@@ -10,6 +10,9 @@ enum AuthFailure {
   /// Un compte existe déjà avec cet e-mail.
   emailAlreadyUsed,
 
+  /// Action impossible : aucun utilisateur n'est connecté.
+  notSignedIn,
+
   /// Problème de connexion au serveur.
   network,
 

@@ -6,6 +6,7 @@ String authErrorMessage(Object error) {
     return switch (error.failure) {
       AuthFailure.invalidCredentials => 'E-mail ou mot de passe incorrect.',
       AuthFailure.emailAlreadyUsed => 'Un compte existe déjà avec cet e-mail.',
+      AuthFailure.notSignedIn => 'Vous n\'êtes pas connecté. Reconnectez-vous.',
       AuthFailure.network => 'Connexion impossible. Vérifiez votre réseau.',
       AuthFailure.unknown => _genericMessage,
     };

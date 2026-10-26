@@ -32,6 +32,8 @@ abstract final class AppRoutes {
   static const String history = '/history';
   static const String favorites = '/favorites';
   static const String profile = '/profile';
+  static const String settingsSegment = 'settings';
+  static const String settings = '$profile/$settingsSegment';
 
   // --- Écrans plein écran (sans barre de navigation) ------------------------
 

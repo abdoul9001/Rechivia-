@@ -27,4 +27,17 @@ abstract interface class AuthRepository {
 
   /// Utilisateur actuellement connecté, ou `null` si personne ne l'est.
   Future<AppUser?> getCurrentUser();
+
+  /// Déconnecte l'utilisateur. Sans effet si personne n'est connecté.
+  Future<void> signOut();
+
+  /// Supprime définitivement le compte de l'utilisateur connecté, puis le
+  /// déconnecte.
+  ///
+  /// Échoue avec `notSignedIn` si personne n'est connecté.
+  ///
+  /// À REVOIR avec le backend : le sort des données du couple dépend de la
+  /// matrice des droits et de conservation du plan (étape 2), pas encore
+  /// rédigée. Il faudra aussi redemander le mot de passe avant de supprimer.
+  Future<void> deleteAccount();
 }

@@ -49,6 +49,31 @@ class AuthController extends AsyncNotifier<void> {
     );
   }
 
+  /// Déconnecte l'utilisateur et efface l'utilisateur mis en cache.
+  Future<bool> signOut() async {
+    final success = await _run(
+      () => ref.read(authRepositoryProvider).signOut(),
+    );
+    _forgetCurrentUser(success: success);
+    return success;
+  }
+
+  /// Supprime définitivement le compte, puis efface l'utilisateur mis en
+  /// cache.
+  Future<bool> deleteAccount() async {
+    final success = await _run(
+      () => ref.read(authRepositoryProvider).deleteAccount(),
+    );
+    _forgetCurrentUser(success: success);
+    return success;
+  }
+
+  /// Après une déconnexion ou une suppression réussie, force les écrans qui
+  /// affichent l'utilisateur à le relire (ils verront alors "personne").
+  void _forgetCurrentUser({required bool success}) {
+    if (success && ref.mounted) ref.invalidate(currentUserProvider);
+  }
+
   Future<bool> _run(Future<Object?> Function() action) async {
     state = const AsyncLoading();
     final result = await AsyncValue.guard(action);

@@ -75,6 +75,25 @@ class FakeAuthRepository implements AuthRepository {
     return _currentUser;
   }
 
+  @override
+  Future<void> signOut() async {
+    await simulateLatency(latency);
+    _currentUser = null;
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    await simulateLatency(latency);
+
+    final user = _currentUser;
+    if (user == null) {
+      throw const AuthException(AuthFailure.notSignedIn);
+    }
+
+    _accounts.remove(_normalize(user.email));
+    _currentUser = null;
+  }
+
   String _normalize(String email) => email.trim().toLowerCase();
 }
 

@@ -2,7 +2,6 @@ import 'package:go_router/go_router.dart';
 
 import 'package:rechivia/core/router/app_routes.dart';
 import 'package:rechivia/core/router/main_shell.dart';
-import 'package:rechivia/core/widgets/placeholder_screen.dart';
 import 'package:rechivia/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:rechivia/features/auth/presentation/screens/login_screen.dart';
 import 'package:rechivia/features/auth/presentation/screens/register_screen.dart';
@@ -17,6 +16,8 @@ import 'package:rechivia/features/home/presentation/screens/home_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:rechivia/features/preferences/presentation/screens/theme_selection_screen.dart';
+import 'package:rechivia/features/profile/presentation/screens/profile_screen.dart';
+import 'package:rechivia/features/profile/presentation/screens/settings_screen.dart';
 
 /// Construit le routeur de l'application.
 ///
@@ -99,7 +100,20 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
               ),
             ],
           ),
-          _tabBranch(AppRoutes.profile, 'Profil'),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.profile,
+                builder: (context, state) => const ProfileScreen(),
+                routes: [
+                  GoRoute(
+                    path: AppRoutes.settingsSegment,
+                    builder: (context, state) => const SettingsScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
       ),
       GoRoute(
@@ -109,19 +123,6 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
       GoRoute(
         path: AppRoutes.guidedConversation,
         builder: (context, state) => const GuidedConversationScreen(),
-      ),
-    ],
-  );
-}
-
-/// Crée la branche d'un onglet. Les écrans réels remplaceront les
-/// placeholders au fil des tâches.
-StatefulShellBranch _tabBranch(String path, String title) {
-  return StatefulShellBranch(
-    routes: [
-      GoRoute(
-        path: path,
-        builder: (context, state) => PlaceholderScreen(title: title),
       ),
     ],
   );

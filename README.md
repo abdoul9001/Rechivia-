@@ -64,6 +64,8 @@ lib/
 │   │   ├── domain/       # entrées, statuts et filtres de l'historique
 │   │   ├── data/         # dépôt factice et favoris
 │   │   └── presentation/ # historique, favoris et cartes partagées
+│   ├── profile/
+│   │   └── presentation/ # profil et paramètres du compte
 │   ├── home/
 │   │   └── presentation/ # accueil et cartes de contenu
 │   └── onboarding/
@@ -76,9 +78,11 @@ assets/
 ```
 
 Les comptes d'authentification sont conservés en mémoire uniquement et
-disparaissent à la fermeture de l'application. Les préférences de thèmes sont
-également factices et non persistées. La connexion Google et Apple affiche
-« Bientôt disponible » en attendant son intégration au backend.
+disparaissent à la fermeture de l'application. Le profil permet de se
+déconnecter, de demander un lien de réinitialisation du mot de passe et de
+supprimer le compte factice. Les préférences de thèmes sont également factices
+et non persistées. La connexion Google et Apple affiche « Bientôt disponible »
+en attendant son intégration au backend.
 Les espaces de couple et invitations sont simulés en mémoire ; les invitations
 expirent après sept jours et ne sont utilisables qu'une fois. Le code de
 démonstration `K7M2PQ` permet de tester le parcours de jonction.
