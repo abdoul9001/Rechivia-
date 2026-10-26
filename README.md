@@ -38,13 +38,20 @@ lib/
 │   ├── router/   # routes et navigation principale
 │   ├── theme/    # couleurs, espacements, styles de texte et thème global
 │   └── widgets/  # composants partagés : boutons, champ, carte, logo et barre
-└── features/     # une fonctionnalité = domain / data / presentation (à venir)
+├── features/
+│   └── onboarding/
+│       └── presentation/
+│           ├── screens/ # carrousel et écran de bienvenue
+│           └── widgets/ # diapositives et indicateur de page
 
 assets/
 └── fonts/        # polices Poppins embarquées
 ```
 
-Les dossiers sont créés au fur et à mesure des tâches, pas avant.
+Les dossiers des fonctionnalités sont créés au fur et à mesure des tâches.
+Les écrans d'inscription et de connexion sont encore des placeholders. La
+connexion Google et Apple affiche « Bientôt disponible » en attendant son
+intégration.
 
 ## Conventions
 
