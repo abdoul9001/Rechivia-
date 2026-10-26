@@ -15,6 +15,9 @@ abstract final class AppRoutes {
   static const String login = '/login';
   static const String forgotPassword = '/forgot-password';
 
+  /// Choix des thèmes, juste après l'inscription.
+  static const String themes = '/themes';
+
   // --- Les 4 onglets de la barre de navigation ------------------------------
   static const String home = '/home';
   static const String history = '/history';

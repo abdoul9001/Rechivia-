@@ -52,7 +52,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           password: _passwordController.text,
         );
 
-    if (success && mounted) context.go(AppRoutes.home);
+    if (success && mounted) context.go(AppRoutes.themes);
   }
 
   void _onStateChanged(AsyncValue<void>? previous, AsyncValue<void> next) {

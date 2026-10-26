@@ -51,4 +51,7 @@ abstract final class AppColors {
 
   static const Color categoryYellow = Color(0xFFFFC107);
   static const Color categoryGreen = Color(0xFF22C55E);
+  static const Color categoryBlue = Color(0xFF3B82F6);
+  static const Color categoryOrange = Color(0xFFF97316);
+  static const Color categoryTeal = Color(0xFF14B8A6);
 }

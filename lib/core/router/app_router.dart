@@ -8,6 +8,7 @@ import 'package:rechivia/features/auth/presentation/screens/login_screen.dart';
 import 'package:rechivia/features/auth/presentation/screens/register_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen.dart';
+import 'package:rechivia/features/preferences/presentation/screens/theme_selection_screen.dart';
 
 /// Construit le routeur de l'application.
 ///
@@ -44,6 +45,10 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
       GoRoute(
         path: AppRoutes.forgotPassword,
         builder: (context, state) => const ForgotPasswordScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.themes,
+        builder: (context, state) => const ThemeSelectionScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

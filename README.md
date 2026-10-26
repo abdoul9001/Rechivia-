@@ -43,6 +43,10 @@ lib/
 │   │   ├── domain/       # contrat, utilisateur, erreurs et validations
 │   │   ├── data/         # dépôt d'authentification factice en mémoire
 │   │   └── presentation/ # formulaires et état Riverpod
+│   ├── preferences/
+│   │   ├── domain/       # catégories et contrat de préférences
+│   │   ├── data/         # dépôt factice en mémoire
+│   │   └── presentation/ # sélection des thèmes
 │   └── onboarding/
 │       └── presentation/
 │           ├── screens/ # carrousel et écran de bienvenue
@@ -53,8 +57,9 @@ assets/
 ```
 
 Les comptes d'authentification sont conservés en mémoire uniquement et
-disparaissent à la fermeture de l'application. La connexion Google et Apple
-affiche « Bientôt disponible » en attendant son intégration au backend.
+disparaissent à la fermeture de l'application. Les préférences de thèmes sont
+également factices et non persistées. La connexion Google et Apple affiche
+« Bientôt disponible » en attendant son intégration au backend.
 
 ## Conventions
 

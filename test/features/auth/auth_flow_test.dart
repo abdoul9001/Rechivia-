@@ -52,7 +52,7 @@ void main() {
       );
     });
 
-    testWidgets('crée le compte et ouvre l\'accueil', (tester) async {
+    testWidgets('crée le compte et ouvre le choix des thèmes', (tester) async {
       await pumpRechivia(tester, initialLocation: AppRoutes.register);
 
       await tester.enterText(_fields.at(0), 'emilie@mail.com');
@@ -62,7 +62,7 @@ void main() {
       await tester.tap(find.text('S\'inscrire').first);
       await tester.pumpAndSettle();
 
-      expect(find.byType(AppBottomNavBar), findsOneWidget);
+      expect(find.text('Choisissez vos thèmes'), findsOneWidget);
     });
   });
 
