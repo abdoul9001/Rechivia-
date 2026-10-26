@@ -56,6 +56,10 @@ lib/
 │   │   ├── domain/       # question, session, réponse et règles métier
 │   │   ├── data/         # dépôt factice de session et réponses
 │   │   └── presentation/ # parcours de réponse, attente et dévoilement
+│   ├── guided_conversation/
+│   │   ├── domain/       # étapes, avancement et règles de confidentialité
+│   │   ├── data/         # dépôt factice des cinq étapes
+│   │   └── presentation/ # progression, réponses et récapitulatif
 │   ├── home/
 │   │   └── presentation/ # accueil et cartes de contenu
 │   └── onboarding/
@@ -79,7 +83,8 @@ elles ne sont pas synchronisées entre appareils ni persistées après fermeture
 La réponse de l'autre partenaire reste masquée tant que les deux réponses
 n'ont pas été envoyées. Une réponse déjà envoyée peut être modifiée tant que
 les réponses ne sont pas dévoilées ; passer une question la clôt pour la
-journée.
+journée. La conversation guidée propose cinq étapes définitives ; les réponses
+du partenaire ne sont transmises qu'après que les deux partenaires ont terminé.
 
 ## Conventions
 

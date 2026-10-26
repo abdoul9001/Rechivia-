@@ -37,4 +37,7 @@ abstract final class AppRoutes {
 
   /// Répondre à la question du jour (bouton "+" au centre de la barre).
   static const String answer = '/answer';
+
+  /// Conversation guidée (en 5 étapes), après la question du jour.
+  static const String guidedConversation = '/guided';
 }

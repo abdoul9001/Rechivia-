@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import 'package:rechivia/core/router/app_routes.dart';
 import 'package:rechivia/core/theme/app_colors.dart';
 import 'package:rechivia/core/theme/app_spacing.dart';
 import 'package:rechivia/core/theme/app_text_styles.dart';
 import 'package:rechivia/core/utils/date_formatter.dart';
 import 'package:rechivia/core/widgets/error_retry_view.dart';
 import 'package:rechivia/core/widgets/primary_button.dart';
+import 'package:rechivia/core/widgets/screen_top_bar.dart';
+import 'package:rechivia/features/auth/presentation/providers/auth_providers.dart';
 import 'package:rechivia/features/daily_question/domain/answer_validators.dart';
 import 'package:rechivia/features/daily_question/domain/daily_session.dart';
 import 'package:rechivia/features/daily_question/domain/daily_session_exception.dart';
+import 'package:rechivia/features/daily_question/presentation/widgets/reveal_view.dart';
 import 'package:rechivia/features/daily_question/presentation/providers/daily_question_providers.dart';
 
 /// Écran de réponse, d'attente et de dévoilement de la question du jour.
@@ -37,35 +42,51 @@ class _DailySessionScreenState extends ConsumerState<DailySessionScreen> {
     final session = ref.watch(dailySessionProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Question du jour'),
-        actions: [
-          IconButton(
-            tooltip: 'Actualiser',
-            onPressed: () => ref.invalidate(dailySessionProvider),
-            icon: const Icon(Icons.refresh),
-          ),
-        ],
-      ),
       body: SafeArea(
-        child: session.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (_, _) => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: ErrorRetryView(
-                message: 'Impossible de charger votre session du jour.',
-                onRetry: () => ref.invalidate(dailySessionProvider),
+        child: Column(
+          children: [
+            ScreenTopBar(
+              onBack: _close,
+              trailing: IconButton(
+                tooltip: 'Actualiser',
+                onPressed: () => ref.invalidate(dailySessionProvider),
+                icon: const Icon(Icons.refresh),
               ),
             ),
-          ),
-          data: (data) => _buildSession(data),
+            Expanded(
+              child: session.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (_, _) => Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSpacing.lg),
+                    child: ErrorRetryView(
+                      message: 'Impossible de charger votre session du jour.',
+                      onRetry: () => ref.invalidate(dailySessionProvider),
+                    ),
+                  ),
+                ),
+                data: (data) => _buildSession(
+                  data,
+                  myLabel:
+                      ref.watch(currentUserProvider).value?.username ?? 'Vous',
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildSession(DailySession session) {
+  void _close() {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(AppRoutes.home);
+    }
+  }
+
+  Widget _buildSession(DailySession session, {required String myLabel}) {
     if (session.myAnswer != null && _answerController.text.isEmpty) {
       _answerController.text = session.myAnswer!.text;
     }
@@ -79,7 +100,13 @@ class _DailySessionScreenState extends ConsumerState<DailySessionScreen> {
           switch (session.phase) {
             SessionPhase.toAnswer => _buildAnswerForm(),
             SessionPhase.waitingForPartner => _buildWaitingView(session),
-            SessionPhase.revealed => _buildRevealedView(session),
+            SessionPhase.revealed => RevealView(
+              myLabel: myLabel,
+              myAnswer: session.myAnswer!,
+              partnerAnswer: session.partnerAnswer!,
+              onContinueDiscussion: () =>
+                  context.push(AppRoutes.guidedConversation),
+            ),
             SessionPhase.iPassed => _buildPassedView(),
             SessionPhase.partnerPassed => _buildPartnerPassedView(session),
           },
@@ -170,36 +197,6 @@ class _DailySessionScreenState extends ConsumerState<DailySessionScreen> {
         ],
         const SizedBox(height: AppSpacing.md),
         _ExpiryLabel(expiresAt: session.expiresAt),
-      ],
-    );
-  }
-
-  Widget _buildRevealedView(DailySession session) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const _StatusCard(
-          icon: Icons.favorite,
-          title: 'Vos réponses sont dévoilées',
-          message: 'Prenez un moment pour découvrir vos réponses ensemble.',
-        ),
-        const SizedBox(height: AppSpacing.md),
-        const Text('Votre réponse', style: AppTextStyles.subtitle),
-        const SizedBox(height: AppSpacing.sm),
-        _AnswerCard(text: session.myAnswer!.text),
-        const SizedBox(height: AppSpacing.md),
-        const Text(
-          'Réponse de votre partenaire',
-          style: AppTextStyles.subtitle,
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        _AnswerCard(text: session.partnerAnswer!.text, partner: true),
-        const SizedBox(height: AppSpacing.sm),
-        Text(
-          'Envoyée le ${DateFormatter.shortDateTime(session.partnerAnswer!.submittedAt)}',
-          style: AppTextStyles.bodySecondary,
-          textAlign: TextAlign.end,
-        ),
       ],
     );
   }
@@ -419,10 +416,9 @@ class _StatusCard extends StatelessWidget {
 }
 
 class _AnswerCard extends StatelessWidget {
-  const _AnswerCard({required this.text, this.partner = false});
+  const _AnswerCard({required this.text});
 
   final String text;
-  final bool partner;
 
   @override
   Widget build(BuildContext context) {
@@ -430,7 +426,7 @@ class _AnswerCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: partner ? AppColors.pinkLight : AppColors.surface,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppRadius.card),
         border: Border.all(color: AppColors.border),
       ),

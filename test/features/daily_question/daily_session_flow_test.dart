@@ -53,7 +53,7 @@ void main() {
     await tester.tap(find.text('Envoyer ma réponse'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Vos réponses sont dévoilées'), findsOneWidget);
+    expect(find.text('Découverte des réponses'), findsOneWidget);
     expect(find.text('Réponse privée du partenaire'), findsOneWidget);
   });
 
