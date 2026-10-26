@@ -35,8 +35,9 @@ lib/
 ├── main.dart     # point d'entrée
 ├── app.dart      # widget racine
 ├── core/
+│   ├── router/   # routes et navigation principale
 │   ├── theme/    # couleurs, espacements, styles de texte et thème global
-│   └── widgets/  # composants partagés : boutons, champ, carte et logo
+│   └── widgets/  # composants partagés : boutons, champ, carte, logo et barre
 └── features/     # une fonctionnalité = domain / data / presentation (à venir)
 
 assets/

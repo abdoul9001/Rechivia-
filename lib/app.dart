@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import 'package:rechivia/core/router/app_router.dart';
 import 'package:rechivia/core/theme/app_theme.dart';
 
-/// Widget racine de Rechivia.
+/// Widget racine de Rechivia : applique le thème et la navigation.
 ///
-/// Il applique le thème global. La navigation sera ajoutée à la tâche 4.
-class RechiviaApp extends StatelessWidget {
-  const RechiviaApp({super.key});
+/// Le routeur est créé une seule fois (dans l'état du widget) pour ne pas
+/// perdre la position de l'utilisateur quand l'application se redessine.
+/// Un [router] peut être injecté, ce qui sert surtout aux tests.
+class RechiviaApp extends StatefulWidget {
+  const RechiviaApp({this.router, super.key});
+
+  /// Routeur à utiliser ; si `null`, le routeur de production est créé.
+  final GoRouter? router;
+
+  @override
+  State<RechiviaApp> createState() => _RechiviaAppState();
+}
+
+class _RechiviaAppState extends State<RechiviaApp> {
+  late final GoRouter _router = widget.router ?? createAppRouter();
+
+  @override
+  void dispose() {
+    if (widget.router == null) {
+      _router.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Rechivia',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const Scaffold(body: Center(child: Text('Rechivia'))),
+      routerConfig: _router,
     );
   }
 }
