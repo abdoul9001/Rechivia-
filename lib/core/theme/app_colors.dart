@@ -23,6 +23,16 @@ abstract final class AppColors {
     colors: [pink, violet],
   );
 
+  /// Pêche très clair, utilisé avec [pinkLight] pour la carte du jour.
+  static const Color peach = Color(0xFFFFE3CC);
+
+  /// Dégradé doux rose vers pêche pour la carte « Question du jour ».
+  static const LinearGradient warmGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [pinkLight, peach],
+  );
+
   // --- Fonds ----------------------------------------------------------------
 
   /// Fond général des écrans.

@@ -24,4 +24,7 @@ abstract interface class AuthRepository {
   /// Réussit toujours, que l'e-mail soit connu ou non : sinon on révélerait
   /// quelles adresses ont un compte.
   Future<void> sendPasswordResetEmail({required String email});
+
+  /// Utilisateur actuellement connecté, ou `null` si personne ne l'est.
+  Future<AppUser?> getCurrentUser();
 }

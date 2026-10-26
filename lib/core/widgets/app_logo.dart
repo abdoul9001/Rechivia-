@@ -9,33 +9,51 @@ import 'package:rechivia/core/theme/app_spacing.dart';
 /// l'image officielle du logo quand elle sera disponible ; seul ce fichier
 /// devra changer, car tous les écrans passent par ce widget.
 class AppLogo extends StatelessWidget {
-  const AppLogo({this.size = 48, this.showName = true, super.key});
+  const AppLogo({
+    this.size = 48,
+    this.showName = true,
+    this.horizontal = false,
+    super.key,
+  });
 
   /// Taille du cœur ; le texte s'adapte proportionnellement.
   final double size;
 
-  /// Affiche le nom "Rechivia" sous le cœur.
+  /// Affiche le nom "Rechivia" avec le cœur.
   final bool showName;
+
+  /// Place le nom à droite du cœur plutôt qu'en dessous.
+  final bool horizontal;
 
   @override
   Widget build(BuildContext context) {
+    final heart = _GradientMask(child: Icon(Icons.favorite, size: size));
+    final name = _GradientMask(
+      child: Text(
+        'Rechivia',
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: horizontal ? size * 0.8 : size * 0.6,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+
+    if (horizontal) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          heart,
+          if (showName) ...[const SizedBox(width: AppSpacing.sm), name],
+        ],
+      );
+    }
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _GradientMask(child: Icon(Icons.favorite, size: size)),
-        if (showName) ...[
-          const SizedBox(height: AppSpacing.xs),
-          _GradientMask(
-            child: Text(
-              'Rechivia',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: size * 0.6,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ],
+        heart,
+        if (showName) ...[const SizedBox(height: AppSpacing.xs), name],
       ],
     );
   }

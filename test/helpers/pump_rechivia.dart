@@ -9,6 +9,9 @@ import 'package:rechivia/features/auth/data/fake_auth_repository.dart';
 import 'package:rechivia/features/auth/presentation/providers/auth_providers.dart';
 import 'package:rechivia/features/couple/data/fake_couple_repository.dart';
 import 'package:rechivia/features/couple/presentation/providers/couple_providers.dart';
+import 'package:rechivia/features/daily_question/data/fake_daily_question_repository.dart';
+import 'package:rechivia/features/daily_question/domain/daily_question_repository.dart';
+import 'package:rechivia/features/daily_question/presentation/providers/daily_question_providers.dart';
 import 'package:rechivia/features/preferences/data/fake_preferences_repository.dart';
 import 'package:rechivia/features/preferences/presentation/providers/preferences_providers.dart';
 
@@ -16,8 +19,10 @@ import 'package:rechivia/features/preferences/presentation/providers/preferences
 Future<void> pumpRechivia(
   WidgetTester tester, {
   String initialLocation = AppRoutes.onboarding,
+  FakeAuthRepository? authRepository,
   FakePreferencesRepository? preferencesRepository,
   FakeCoupleRepository? coupleRepository,
+  DailyQuestionRepository? dailyQuestionRepository,
 }) async {
   tester.view.physicalSize = const Size(1200, 3000);
   tester.view.devicePixelRatio = 3;
@@ -27,7 +32,7 @@ Future<void> pumpRechivia(
     ProviderScope(
       overrides: [
         authRepositoryProvider.overrideWithValue(
-          FakeAuthRepository(latency: Duration.zero),
+          authRepository ?? FakeAuthRepository(latency: Duration.zero),
         ),
         preferencesRepositoryProvider.overrideWithValue(
           preferencesRepository ??
@@ -35,6 +40,10 @@ Future<void> pumpRechivia(
         ),
         coupleRepositoryProvider.overrideWithValue(
           coupleRepository ?? FakeCoupleRepository(latency: Duration.zero),
+        ),
+        dailyQuestionRepositoryProvider.overrideWithValue(
+          dailyQuestionRepository ??
+              FakeDailyQuestionRepository(latency: Duration.zero),
         ),
       ],
       child: RechiviaApp(

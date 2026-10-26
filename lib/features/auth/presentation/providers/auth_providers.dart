@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:rechivia/features/auth/data/fake_auth_repository.dart';
+import 'package:rechivia/features/auth/domain/app_user.dart';
 import 'package:rechivia/features/auth/domain/auth_repository.dart';
 
 /// Fournit le dépôt d'authentification à toute l'application.
@@ -64,3 +65,10 @@ class AuthController extends AsyncNotifier<void> {
 /// d'authentification est quitté.
 final authControllerProvider =
     AsyncNotifierProvider.autoDispose<AuthController, void>(AuthController.new);
+
+/// Utilisateur actuellement connecté (`null` si aucun).
+///
+/// Le dépôt reste la seule source de vérité de la session.
+final currentUserProvider = FutureProvider.autoDispose<AppUser?>(
+  (ref) => ref.watch(authRepositoryProvider).getCurrentUser(),
+);

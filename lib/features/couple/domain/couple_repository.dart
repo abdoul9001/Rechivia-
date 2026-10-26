@@ -12,4 +12,7 @@ abstract interface class CoupleRepository {
 
   /// Rejoint un espace avec un code d'invitation.
   Future<Couple> joinCouple({required String code});
+
+  /// Espace de couple actuel de l'utilisateur, ou `null` s'il n'en a pas.
+  Future<Couple?> getCurrentCouple();
 }

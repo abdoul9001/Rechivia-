@@ -1,3 +1,4 @@
+import 'package:rechivia/core/data/simulated_latency.dart';
 import 'package:rechivia/features/preferences/domain/preferences_repository.dart';
 import 'package:rechivia/features/preferences/domain/theme_category.dart';
 
@@ -15,7 +16,7 @@ class FakePreferencesRepository implements PreferencesRepository {
 
   @override
   Future<void> saveSelectedThemes(Set<ThemeCategory> themes) async {
-    await Future<void>.delayed(latency);
+    await simulateLatency(latency);
     _savedThemes = {...themes};
   }
 }

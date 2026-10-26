@@ -51,6 +51,12 @@ lib/
 │   │   ├── domain/       # espace, icônes, invitations et validations
 │   │   ├── data/         # dépôt factice en mémoire
 │   │   └── presentation/ # création, invitation et jonction d'un espace
+│   ├── daily_question/
+│   │   ├── domain/       # question du jour et contrat de données
+│   │   ├── data/         # catalogue factice déterminé par la date
+│   │   └── presentation/ # fournisseur de question
+│   ├── home/
+│   │   └── presentation/ # accueil et cartes de contenu
 │   └── onboarding/
 │       └── presentation/
 │           ├── screens/ # carrousel et écran de bienvenue
@@ -67,6 +73,8 @@ disparaissent à la fermeture de l'application. Les préférences de thèmes son
 Les espaces de couple et invitations sont simulés en mémoire ; les invitations
 expirent après sept jours et ne sont utilisables qu'une fois. Le code de
 démonstration `K7M2PQ` permet de tester le parcours de jonction.
+La question du jour et les informations de session sont également simulées ;
+elles ne sont pas synchronisées entre appareils ni persistées après fermeture.
 
 ## Conventions
 

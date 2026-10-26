@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:rechivia/core/data/simulated_latency.dart';
 import 'package:rechivia/features/couple/domain/couple.dart';
 import 'package:rechivia/features/couple/domain/couple_exception.dart';
 import 'package:rechivia/features/couple/domain/couple_icon.dart';
@@ -46,7 +47,7 @@ class FakeCoupleRepository implements CoupleRepository {
     required String name,
     required CoupleIcon icon,
   }) async {
-    await Future<void>.delayed(latency);
+    await simulateLatency(latency);
     if (_couple != null) {
       throw const CoupleException(CoupleFailure.alreadyInCouple);
     }
@@ -65,7 +66,7 @@ class FakeCoupleRepository implements CoupleRepository {
 
   @override
   Future<Invitation> invitePartner({required String contact}) async {
-    await Future<void>.delayed(latency);
+    await simulateLatency(latency);
     final couple = _couple;
     if (couple == null) {
       throw const CoupleException(CoupleFailure.noCouple);
@@ -88,7 +89,7 @@ class FakeCoupleRepository implements CoupleRepository {
 
   @override
   Future<Couple> joinCouple({required String code}) async {
-    await Future<void>.delayed(latency);
+    await simulateLatency(latency);
     if (_couple != null) {
       throw const CoupleException(CoupleFailure.alreadyInCouple);
     }
@@ -104,6 +105,12 @@ class FakeCoupleRepository implements CoupleRepository {
     stored.used = true;
     _couple = stored.couple;
     return stored.couple;
+  }
+
+  @override
+  Future<Couple?> getCurrentCouple() async {
+    await simulateLatency(latency);
+    return _couple;
   }
 
   String _generateCode() {

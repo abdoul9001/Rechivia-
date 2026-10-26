@@ -54,6 +54,7 @@ class CoupleController extends Notifier<CoupleState> {
           .createCouple(name: name, icon: icon);
       if (ref.mounted) {
         state = state.copyWith(couple: couple, isLoading: false);
+        ref.invalidate(currentCoupleProvider);
       }
       return couple;
     } on CoupleException catch (error) {
@@ -104,6 +105,7 @@ class CoupleController extends Notifier<CoupleState> {
           .joinCouple(code: code);
       if (ref.mounted) {
         state = state.copyWith(couple: couple, isLoading: false);
+        ref.invalidate(currentCoupleProvider);
       }
       return couple;
     } on CoupleException catch (error) {

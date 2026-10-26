@@ -1,3 +1,4 @@
+import 'package:rechivia/core/data/simulated_latency.dart';
 import 'package:rechivia/features/auth/domain/app_user.dart';
 import 'package:rechivia/features/auth/domain/auth_exception.dart';
 import 'package:rechivia/features/auth/domain/auth_repository.dart';
@@ -22,13 +23,16 @@ class FakeAuthRepository implements AuthRepository {
 
   int _nextId = 1;
 
+  /// Utilisateur connecté ; le dépôt joue le rôle de session serveur.
+  AppUser? _currentUser;
+
   @override
   Future<AppUser> signUp({
     required String email,
     required String username,
     required String password,
   }) async {
-    await Future<void>.delayed(latency);
+    await simulateLatency(latency);
 
     final key = _normalize(email);
     if (_accounts.containsKey(key)) {
@@ -41,6 +45,7 @@ class FakeAuthRepository implements AuthRepository {
       username: username.trim(),
     );
     _accounts[key] = _Account(user: user, password: password);
+    _currentUser = user;
     return user;
   }
 
@@ -49,18 +54,25 @@ class FakeAuthRepository implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    await Future<void>.delayed(latency);
+    await simulateLatency(latency);
 
     final account = _accounts[_normalize(email)];
     if (account == null || account.password != password) {
       throw const AuthException(AuthFailure.invalidCredentials);
     }
+    _currentUser = account.user;
     return account.user;
   }
 
   @override
   Future<void> sendPasswordResetEmail({required String email}) async {
-    await Future<void>.delayed(latency);
+    await simulateLatency(latency);
+  }
+
+  @override
+  Future<AppUser?> getCurrentUser() async {
+    await simulateLatency(latency);
+    return _currentUser;
   }
 
   String _normalize(String email) => email.trim().toLowerCase();

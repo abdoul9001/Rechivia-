@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rechivia/core/router/app_routes.dart';
 import 'package:rechivia/core/widgets/app_bottom_nav_bar.dart';
 import 'package:rechivia/core/widgets/placeholder_screen.dart';
+import 'package:rechivia/features/home/presentation/screens/home_screen.dart';
 
 import 'helpers/pump_rechivia.dart';
 
@@ -19,7 +20,7 @@ void main() {
     await pumpRechivia(tester, initialLocation: AppRoutes.home);
 
     expect(find.byType(AppBottomNavBar), findsOneWidget);
-    expect(_screenText('Accueil'), findsOneWidget);
+    expect(find.byType(HomeScreen), findsOneWidget);
   });
 
   testWidgets('change d\'écran en touchant un onglet', (tester) async {

@@ -9,6 +9,7 @@ import 'package:rechivia/features/auth/presentation/screens/register_screen.dart
 import 'package:rechivia/features/couple/presentation/screens/create_couple_screen.dart';
 import 'package:rechivia/features/couple/presentation/screens/invite_partner_screen.dart';
 import 'package:rechivia/features/couple/presentation/screens/join_couple_screen.dart';
+import 'package:rechivia/features/home/presentation/screens/home_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:rechivia/features/preferences/presentation/screens/theme_selection_screen.dart';
@@ -20,7 +21,7 @@ import 'package:rechivia/features/preferences/presentation/screens/theme_selecti
 ///
 /// Structure :
 /// - le parcours d'entrée (introduction, bienvenue, authentification) ;
-/// - 4 onglets regroupés dans [MainShell] (avec la barre de navigation) ;
+/// - 4 onglets regroupés dans [MainShell] (avec l'accueil et la barre de navigation) ;
 /// - des écrans plein écran, placés à côté, qui recouvrent la barre.
 ///
 /// L'application démarre sur l'introduction ; plus tard, la redirection
@@ -70,7 +71,14 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
           return MainShell(navigationShell: navigationShell);
         },
         branches: [
-          _tabBranch(AppRoutes.home, 'Accueil'),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.home,
+                builder: (context, state) => const HomeScreen(),
+              ),
+            ],
+          ),
           _tabBranch(AppRoutes.history, 'Historique'),
           _tabBranch(AppRoutes.favorites, 'Favoris'),
           _tabBranch(AppRoutes.profile, 'Profil'),

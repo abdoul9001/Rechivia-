@@ -57,7 +57,7 @@ class _CreateCoupleScreenState extends ConsumerState<CreateCoupleScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(coupleControllerProvider);
     return FormScreenLayout(
-      title: 'Créez votre espace',
+      title: 'Créez votre espace de couple',
       subtitle:
           'Un lieu privé pour vous retrouver et répondre ensemble, '
           'à votre rythme.',
