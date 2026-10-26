@@ -11,6 +11,8 @@ import 'package:rechivia/features/couple/presentation/screens/invite_partner_scr
 import 'package:rechivia/features/couple/presentation/screens/join_couple_screen.dart';
 import 'package:rechivia/features/daily_question/presentation/screens/daily_session_screen.dart';
 import 'package:rechivia/features/guided_conversation/presentation/screens/guided_conversation_screen.dart';
+import 'package:rechivia/features/history/presentation/screens/favorites_screen.dart';
+import 'package:rechivia/features/history/presentation/screens/history_screen.dart';
 import 'package:rechivia/features/home/presentation/screens/home_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen.dart';
@@ -81,8 +83,22 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
               ),
             ],
           ),
-          _tabBranch(AppRoutes.history, 'Historique'),
-          _tabBranch(AppRoutes.favorites, 'Favoris'),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.history,
+                builder: (context, state) => const HistoryScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.favorites,
+                builder: (context, state) => const FavoritesScreen(),
+              ),
+            ],
+          ),
           _tabBranch(AppRoutes.profile, 'Profil'),
         ],
       ),

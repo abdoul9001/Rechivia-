@@ -10,6 +10,7 @@ import 'package:rechivia/core/widgets/app_logo.dart';
 import 'package:rechivia/features/auth/presentation/providers/auth_providers.dart';
 import 'package:rechivia/features/couple/presentation/providers/couple_providers.dart';
 import 'package:rechivia/features/daily_question/presentation/providers/daily_question_providers.dart';
+import 'package:rechivia/features/history/presentation/providers/history_providers.dart';
 import 'package:rechivia/features/home/presentation/widgets/couple_space_card.dart';
 import 'package:rechivia/features/home/presentation/widgets/daily_question_card.dart';
 import 'package:rechivia/features/home/presentation/widgets/last_conversation_card.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends ConsumerWidget {
     final username = ref.watch(currentUserProvider).value?.username;
     final question = ref.watch(dailySessionProvider);
     final couple = ref.watch(currentCoupleProvider);
+    final lastEntry = ref.watch(lastHistoryEntryProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -61,7 +63,11 @@ class HomeScreen extends ConsumerWidget {
                 onAction: () => context.go(AppRoutes.history),
               ),
               const SizedBox(height: AppSpacing.sm + 4),
-              const LastConversationCard(),
+              LastConversationCard(
+                entry: lastEntry,
+                onOpen: () => context.go(AppRoutes.history),
+                onRetry: () => ref.invalidate(historyEntriesProvider),
+              ),
             ],
           ),
         ),

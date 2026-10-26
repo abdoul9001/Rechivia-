@@ -15,6 +15,9 @@ import 'package:rechivia/features/daily_question/presentation/providers/daily_qu
 import 'package:rechivia/features/guided_conversation/data/fake_guided_conversation_repository.dart';
 import 'package:rechivia/features/guided_conversation/domain/guided_conversation_repository.dart';
 import 'package:rechivia/features/guided_conversation/presentation/providers/guided_conversation_providers.dart';
+import 'package:rechivia/features/history/data/fake_history_repository.dart';
+import 'package:rechivia/features/history/domain/history_repository.dart';
+import 'package:rechivia/features/history/presentation/providers/history_providers.dart';
 import 'package:rechivia/features/preferences/data/fake_preferences_repository.dart';
 import 'package:rechivia/features/preferences/presentation/providers/preferences_providers.dart';
 
@@ -27,6 +30,7 @@ Future<void> pumpRechivia(
   FakeCoupleRepository? coupleRepository,
   DailyQuestionRepository? dailyQuestionRepository,
   GuidedConversationRepository? guidedConversationRepository,
+  HistoryRepository? historyRepository,
 }) async {
   tester.view.physicalSize = const Size(1200, 3000);
   tester.view.devicePixelRatio = 3;
@@ -55,6 +59,9 @@ Future<void> pumpRechivia(
                 latency: Duration.zero,
                 partnerReplyDelay: null,
               ),
+        ),
+        historyRepositoryProvider.overrideWithValue(
+          historyRepository ?? FakeHistoryRepository(latency: Duration.zero),
         ),
       ],
       child: RechiviaApp(

@@ -60,6 +60,10 @@ lib/
 │   │   ├── domain/       # étapes, avancement et règles de confidentialité
 │   │   ├── data/         # dépôt factice des cinq étapes
 │   │   └── presentation/ # progression, réponses et récapitulatif
+│   ├── history/
+│   │   ├── domain/       # entrées, statuts et filtres de l'historique
+│   │   ├── data/         # dépôt factice et favoris
+│   │   └── presentation/ # historique, favoris et cartes partagées
 │   ├── home/
 │   │   └── presentation/ # accueil et cartes de contenu
 │   └── onboarding/
@@ -85,6 +89,8 @@ n'ont pas été envoyées. Une réponse déjà envoyée peut être modifiée tan
 les réponses ne sont pas dévoilées ; passer une question la clôt pour la
 journée. La conversation guidée propose cinq étapes définitives ; les réponses
 du partenaire ne sont transmises qu'après que les deux partenaires ont terminé.
+L'historique et les favoris utilisent une même liste d'exemples en mémoire ;
+les entrées réelles seront synchronisées avec le backend ultérieurement.
 
 ## Conventions
 

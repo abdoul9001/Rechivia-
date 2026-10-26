@@ -32,4 +32,19 @@ abstract final class DateFormatter {
   static String shortDateTime(DateTime date) {
     return '${shortDate(date)} à ${time(date)}';
   }
+
+  /// Ancienneté en jours calendaires : aujourd'hui, hier ou il y a N jours.
+  static String relativeDay(DateTime date, {DateTime? now}) {
+    final reference = (now ?? DateTime.now()).toLocal();
+    final local = date.toLocal();
+    final days = DateTime.utc(
+      reference.year,
+      reference.month,
+      reference.day,
+    ).difference(DateTime.utc(local.year, local.month, local.day)).inDays;
+
+    if (days <= 0) return 'Aujourd\'hui';
+    if (days == 1) return 'Hier';
+    return 'Il y a $days jours';
+  }
 }

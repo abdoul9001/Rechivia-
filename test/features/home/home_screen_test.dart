@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:rechivia/core/router/app_routes.dart';
-import 'package:rechivia/core/widgets/placeholder_screen.dart';
 import 'package:rechivia/features/auth/data/fake_auth_repository.dart';
 import 'package:rechivia/features/couple/data/fake_couple_repository.dart';
 import 'package:rechivia/features/couple/domain/couple_icon.dart';
@@ -9,6 +8,8 @@ import 'package:rechivia/features/daily_question/data/fake_daily_question_reposi
 import 'package:rechivia/features/daily_question/domain/daily_question_repository.dart';
 import 'package:rechivia/features/daily_question/domain/daily_session.dart';
 import 'package:rechivia/features/daily_question/domain/daily_session_exception.dart';
+import 'package:rechivia/features/history/data/fake_history_repository.dart';
+import 'package:rechivia/features/history/presentation/screens/history_screen.dart';
 
 import '../../helpers/pump_rechivia.dart';
 
@@ -27,13 +28,6 @@ class _FailingDailyQuestionRepository implements DailyQuestionRepository {
   Future<DailySession> passToday() {
     throw const DailySessionException(DailySessionFailure.unknown);
   }
-}
-
-Finder _placeholderText(String text) {
-  return find.descendant(
-    of: find.byType(PlaceholderScreen),
-    matching: find.text(text),
-  );
 }
 
 void main() {
@@ -129,7 +123,7 @@ void main() {
     await tester.tap(historyAction);
     await tester.pumpAndSettle();
 
-    expect(_placeholderText('Historique'), findsOneWidget);
+    expect(find.byType(HistoryScreen), findsOneWidget);
   });
 
   testWidgets('affiche "Réessayer" quand la question ne charge pas', (
@@ -146,5 +140,40 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('Réessayer'), findsOneWidget);
+  });
+
+  testWidgets('résume la dernière conversation de l\'historique', (
+    tester,
+  ) async {
+    await pumpRechivia(tester, initialLocation: AppRoutes.home);
+
+    expect(find.textContaining('Vous avez répondu à'), findsOneWidget);
+    expect(find.text('Hier'), findsOneWidget);
+  });
+
+  testWidgets('toucher la dernière conversation ouvre l\'historique', (
+    tester,
+  ) async {
+    await pumpRechivia(tester, initialLocation: AppRoutes.home);
+
+    final lastEntry = find.textContaining('Vous avez répondu à');
+    await tester.ensureVisible(lastEntry);
+    await tester.tap(lastEntry);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(HistoryScreen), findsOneWidget);
+  });
+
+  testWidgets('invite à répondre quand l\'historique est vide', (tester) async {
+    await pumpRechivia(
+      tester,
+      initialLocation: AppRoutes.home,
+      historyRepository: FakeHistoryRepository(
+        latency: Duration.zero,
+        seedEntries: const [],
+      ),
+    );
+
+    expect(find.text('Pas encore de conversation'), findsOneWidget);
   });
 }
