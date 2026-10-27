@@ -18,6 +18,9 @@ import 'package:rechivia/features/guided_conversation/presentation/providers/gui
 import 'package:rechivia/features/history/data/fake_history_repository.dart';
 import 'package:rechivia/features/history/domain/history_repository.dart';
 import 'package:rechivia/features/history/presentation/providers/history_providers.dart';
+import 'package:rechivia/features/notifications/data/fake_notification_repository.dart';
+import 'package:rechivia/features/notifications/domain/notification_repository.dart';
+import 'package:rechivia/features/notifications/presentation/providers/notification_providers.dart';
 import 'package:rechivia/features/preferences/data/fake_preferences_repository.dart';
 import 'package:rechivia/features/preferences/presentation/providers/preferences_providers.dart';
 
@@ -31,6 +34,7 @@ Future<void> pumpRechivia(
   DailyQuestionRepository? dailyQuestionRepository,
   GuidedConversationRepository? guidedConversationRepository,
   HistoryRepository? historyRepository,
+  NotificationRepository? notificationRepository,
 }) async {
   tester.view.physicalSize = const Size(1200, 3000);
   tester.view.devicePixelRatio = 3;
@@ -62,6 +66,10 @@ Future<void> pumpRechivia(
         ),
         historyRepositoryProvider.overrideWithValue(
           historyRepository ?? FakeHistoryRepository(latency: Duration.zero),
+        ),
+        notificationRepositoryProvider.overrideWithValue(
+          notificationRepository ??
+              FakeNotificationRepository(latency: Duration.zero),
         ),
       ],
       child: RechiviaApp(

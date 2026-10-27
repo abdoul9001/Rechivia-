@@ -15,6 +15,8 @@ import 'package:rechivia/features/history/presentation/screens/history_screen.da
 import 'package:rechivia/features/home/presentation/screens/home_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:rechivia/features/onboarding/presentation/screens/welcome_screen.dart';
+import 'package:rechivia/features/notifications/presentation/screens/notification_settings_screen.dart';
+import 'package:rechivia/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:rechivia/features/preferences/presentation/screens/theme_selection_screen.dart';
 import 'package:rechivia/features/profile/presentation/screens/profile_screen.dart';
 import 'package:rechivia/features/profile/presentation/screens/settings_screen.dart';
@@ -109,6 +111,17 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.onboarding}) {
                   GoRoute(
                     path: AppRoutes.settingsSegment,
                     builder: (context, state) => const SettingsScreen(),
+                  ),
+                  GoRoute(
+                    path: AppRoutes.notificationsSegment,
+                    builder: (context, state) => const NotificationsScreen(),
+                    routes: [
+                      GoRoute(
+                        path: AppRoutes.notificationSettingsSegment,
+                        builder: (context, state) =>
+                            const NotificationSettingsScreen(),
+                      ),
+                    ],
                   ),
                 ],
               ),

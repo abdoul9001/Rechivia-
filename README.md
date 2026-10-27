@@ -64,6 +64,10 @@ lib/
 │   │   ├── domain/       # entrées, statuts et filtres de l'historique
 │   │   ├── data/         # dépôt factice et favoris
 │   │   └── presentation/ # historique, favoris et cartes partagées
+│   ├── notifications/
+│   │   ├── domain/       # notifications, filtres et réglages
+│   │   ├── data/         # dépôt factice des notifications
+│   │   └── presentation/ # centre de notifications et réglages
 │   ├── profile/
 │   │   └── presentation/ # profil et paramètres du compte
 │   ├── home/
@@ -83,6 +87,8 @@ déconnecter, de demander un lien de réinitialisation du mot de passe et de
 supprimer le compte factice. Les préférences de thèmes sont également factices
 et non persistées. La connexion Google et Apple affiche « Bientôt disponible »
 en attendant son intégration au backend.
+Le centre de notifications et ses réglages utilisent aussi un dépôt factice en
+mémoire ; les notifications poussées sur le téléphone dépendront du backend.
 Les espaces de couple et invitations sont simulés en mémoire ; les invitations
 expirent après sept jours et ne sont utilisables qu'une fois. Le code de
 démonstration `K7M2PQ` permet de tester le parcours de jonction.

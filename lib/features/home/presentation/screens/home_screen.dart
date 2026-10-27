@@ -15,6 +15,7 @@ import 'package:rechivia/features/home/presentation/widgets/couple_space_card.da
 import 'package:rechivia/features/home/presentation/widgets/daily_question_card.dart';
 import 'package:rechivia/features/home/presentation/widgets/last_conversation_card.dart';
 import 'package:rechivia/features/home/presentation/widgets/section_header.dart';
+import 'package:rechivia/features/notifications/presentation/widgets/notification_bell.dart';
 
 /// Accueil principal : salutation, question du jour, espace et conversation.
 class HomeScreen extends ConsumerWidget {
@@ -34,7 +35,15 @@ class HomeScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppLogo(size: 28, horizontal: true),
+              Row(
+                children: [
+                  const AppLogo(size: 28, horizontal: true),
+                  const Spacer(),
+                  NotificationBell(
+                    onPressed: () => context.go(AppRoutes.notifications),
+                  ),
+                ],
+              ),
               const SizedBox(height: AppSpacing.lg),
               _Greeting(username: username),
               const SizedBox(height: AppSpacing.lg),

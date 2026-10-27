@@ -15,9 +15,7 @@ import 'package:rechivia/features/auth/presentation/providers/auth_providers.dar
 
 /// Écran "Paramètres et confidentialité" (maquette 18).
 ///
-/// Pour l'instant : changer le mot de passe et supprimer le compte. Les
-/// notifications (tâche suivante) et la modification des thèmes viendront
-/// s'y ajouter ; les pages légales, une fois les textes validés.
+/// Paramètres du compte et préférences de notification.
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
@@ -117,6 +115,18 @@ class SettingsScreen extends ConsumerWidget {
                   subtitle: 'Suppression définitive',
                   isDestructive: true,
                   onTap: () => _deleteAccount(context, ref),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            SettingsGroup(
+              title: 'Préférences',
+              children: [
+                SettingsRow(
+                  icon: Icons.notifications_none,
+                  title: 'Notifications',
+                  subtitle: 'Gérez vos alertes et rappels',
+                  onTap: () => context.go(AppRoutes.notificationSettings),
                 ),
               ],
             ),

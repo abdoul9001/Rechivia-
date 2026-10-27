@@ -34,6 +34,11 @@ abstract final class AppRoutes {
   static const String profile = '/profile';
   static const String settingsSegment = 'settings';
   static const String settings = '$profile/$settingsSegment';
+  static const String notificationsSegment = 'notifications';
+  static const String notifications = '$profile/$notificationsSegment';
+  static const String notificationSettingsSegment = 'settings';
+  static const String notificationSettings =
+      '$notifications/$notificationSettingsSegment';
 
   // --- Écrans plein écran (sans barre de navigation) ------------------------
 
